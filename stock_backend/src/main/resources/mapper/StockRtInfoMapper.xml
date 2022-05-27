@@ -172,10 +172,18 @@
         </foreach>
     </select>
 
-    <!--    <select id="getLikeCode" resultType="java.util.Map">-->
-
-
-    <!--    </select>-->
+    <select id="getLikeCode" resultType="java.util.Map">
+        select
+        stock_code as code,
+        stock_name as name
+        from stock_rt_info
+        <where>
+            <if test="searchStr!= null || searchStr!= ''">
+                stock_code like concat('%',#{searchStr,jdbcType=CHAR},'%')
+            </if>
+        </where>
+        limit 0,10
+    </select>
     <select id="getstockWeekklineData" resultType="com.itheima.stock.common.domain.Stock4EvrWeekDomain">
         select
         date_format(sri2.cur_time,'%Y%m%d') as date,
@@ -212,10 +220,11 @@
     </select>
     <select id="selectStockFlowingWater" resultType="com.itheima.stock.common.domain.StockFlowingWaterDomain">
         select date_format(sri2.cur_time, '%Y%m%d%h%i') as `date`,
-               sri2.trade_amount                          as tradeAmt,
-               sri2.trade_volume                          as tradeVol,
-               sri2.cur_price                              as tradePrice
-        from stock_rt_info as sri2 where sri2.stock_code = #{code,jdbcType=CHAR}
+               sri2.trade_amount                        as tradeAmt,
+               sri2.trade_volume                        as tradeVol,
+               sri2.cur_price                           as tradePrice
+        from stock_rt_info as sri2
+        where sri2.stock_code = #{code,jdbcType=CHAR}
         order by sri2.cur_time desc limit 0,10
 
     </select>

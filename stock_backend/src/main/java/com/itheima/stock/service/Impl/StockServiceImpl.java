@@ -438,7 +438,7 @@ public class StockServiceImpl implements StockService {
         //当前时间节点
         Date curTime = curDateTime.toDate();
         //前推20
-        Date pre20Day = curDateTime.minusDays(20).toDate();
+        Date pre20Day = curDateTime.minusDays(3).toDate();
 
         //TODO 后续删除
 //        String avlDate="20220106142500";
@@ -453,6 +453,11 @@ public class StockServiceImpl implements StockService {
         return R.ok(infos);
     }
 
+    /**
+     * 模糊搜索
+     * @param searchStr
+     * @return
+     */
     @Override
     public R<List<Map>> getLikeCode(String searchStr) {
 
@@ -478,6 +483,11 @@ public class StockServiceImpl implements StockService {
         return R.ok(map);
     }
 
+    /**
+     * 周K线
+     * @param code
+     * @return
+     */
     @Override
     public R<List<Stock4EvrWeekDomain>> stockWeekkline(String code) {
         //获取当前日期前推20天
