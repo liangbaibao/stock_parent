@@ -1,0 +1,3 @@
+# Project exclude paths
+/stock_backend/target/
+/stock_xxljob_admin/target/
